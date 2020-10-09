@@ -1,5 +1,9 @@
 #!/bin/bash
 
+## Public SSH key
+mkdir -p /root/.ssh
+echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDYcUG2E2jBG7+xFUNd8UUdXOU+VGMmSniiRR7w9qD4smnaFdmCBI/ckNmgbW0iOkW24Sl5ZQPirtrZf6U//PLBZe3XsutDk39xsQouJ7+UWIWjJnhBrOY3iBT7Z3jqcvh8/K6ETlmjBCObv2lfARXyVlbLp0u4iMwVgVEbNevcn9Nblhpo8kYIwXJDBA2zhOBmrRp0RZABY2fEIWuKLG3t2/yHz7nh6kyt6/KmIFpGKiivG8l5Zh+6+nr1k0xwBbn7tecNNqg5OTEDY09q1ykW2AKOyFjE8CXzL+BF6P4yUdHBn8tRD5AftQKXCHd5h42Xa6RLZS9yNadKa0O4F0zv alex@Alexs-MacBook-Pro.local" > /root/.ssh/authorized_keys
+
 ## DNF Update
 dnf update -y
 
@@ -28,3 +32,7 @@ else
   echo "Ansible not installed" >&2
 fi
 
+git clone https://github.com/alexnastas/loca-bootstrap.git /root/loca_bootstrap
+cd /root/loca_bootstrap
+ansible-galaxy install -r requirements.yml
+ansible-playbook -i inventory provision.yml
