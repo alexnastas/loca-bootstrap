@@ -1,0 +1,16 @@
+- name: Clone the netbox docker-compose repository
+  git: 
+    repo: https://github.com/netbox-community/netbox-docker.git
+    version: release
+    dest: "{{ netbox_root }}"
+
+- name: Override some docker-compose.yml configuration
+  template:
+    src: netbox-docker-compose.override.yml.j2
+    dest: "{{ netbox_root }}/docker-compose.override.yml"
+
+- name: Build and run Netbox containers using docker-compose
+  community.general.docker_compose: 
+    project_src: "{{ netbox_root }}"
+    pull: yes
+    build: yes

@@ -1,0 +1,20 @@
+---
+- hosts: all
+  roles:
+    - common-os-setup
+    - docker-dockerce-install
+    - docker-netbox-install
+
+- name: Build and deploy AWX
+  hosts: all
+  roles:
+    - {role: awx_check_vars}
+    - {role: awx_image_build, when: "dockerhub_base is not defined"}
+    - {role: awx_image_push, when: "docker_registry is defined and dockerhub_base is not defined"}
+    - {role: awx_kubernetes, when: "openshift_host is defined or kubernetes_context is defined"}
+    - {role: awx_local_docker, when: "openshift_host is not defined and kubernetes_context is not defined"}
+
+- name: Build and deploy GITLAB
+  hosts: all
+  roles:
+    - {role: gitlab_docker_install}

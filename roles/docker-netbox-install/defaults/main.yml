@@ -1,0 +1,4 @@
+---
+netbox_root: /opt/netbox
+netbox_public_http_port: 8080
+netbox_http_port: 8080

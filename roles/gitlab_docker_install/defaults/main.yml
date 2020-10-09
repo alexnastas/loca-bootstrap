@@ -1,0 +1,5 @@
+---
+gitlab_root: /opt/gitlab
+gitlab_http_public_port: 1080
+gitlab_https_public_port: 1443
+gitlab_ssh_public_port: 1022

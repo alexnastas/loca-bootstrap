@@ -1,0 +1,18 @@
+- name: Disable SELinux
+  command: setenforce 0 
+
+- name: Disable SELinux persistently
+  lineinfile:
+    path: /etc/selinux/config
+    regexp: '^SELINUX='
+    line: 'SELINUX=disabled'
+
+- name: disable firewalld
+  systemd: 
+    name: firewalld
+    enabled: no
+    state: stopped
+
+- name: Set up a hostname
+  hostname: 
+    name: bootstrap

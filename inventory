@@ -1,0 +1,62 @@
+localhost ansible_connection=local
+
+[all:vars]
+
+################### NETBOX Parameters #######################
+#############################################################
+## The indicated values are the default ones. Uncomment only if you need to modify them
+# netbox_root: /opt/netbox
+# netbox_public_http_port: 8080
+# netbox_http_port: 8080
+
+################### AWX Parameters ##########################
+#############################################################
+
+# Remove these lines if you want to run a local image build
+# Otherwise the setup playbook will install the official Ansible images. Versions may
+# be selected based on: latest, 1, 1.0, 1.0.0, 1.0.0.123
+# by default the base will be used to search for ansible/awx
+dockerhub_base=ansible
+
+# Common Docker parameters
+awx_task_hostname=awx
+awx_web_hostname=awxweb
+postgres_data_dir="/opt/awx/pgdocker"
+host_port=80
+host_port_ssl=443
+#ssl_certificate=
+# Optional key file
+#ssl_certificate_key=
+docker_compose_dir="/opt/awx/awxcompose"
+
+# Set pg_hostname if you have an external postgres server, otherwise
+# a new postgres service will be created
+# pg_hostname=postgresql
+pg_username=awx
+# pg_password should be random 10 character alphanumeric string, when postgresql is running on kubernetes
+# NB: it's a limitation of the "official" postgres helm chart
+pg_password=awxpass
+pg_database=awx
+pg_port=5432
+#pg_sslmode=require
+
+# This will create or update a default admin (superuser) account in AWX, if not provided
+# then these default values are used
+admin_user=admin
+admin_password=password
+
+# Whether or not to create preload data for demonstration purposes
+create_preload_data=True
+
+# AWX Secret key
+# It's *very* important that this stay the same between upgrades or you will lose the ability to decrypt
+# your credentials
+secret_key=awxsecret
+
+################### GITLAB Parameters #######################
+#############################################################
+## The indicated values are the default ones. Uncomment only if you need to modify them
+# gitlab_root: /opt/gitlab
+# gitlab_http_public_port: 1080
+# gitlab_https_public_port: 1443
+# gitlab_ssh_public_port: 1022

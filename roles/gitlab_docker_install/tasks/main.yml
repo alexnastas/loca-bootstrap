@@ -1,0 +1,13 @@
+- name: Create the gitlab root directory
+  command: mkdir -p "{{ gitlab_root }}"
+- name: Copy the Gitlab docker-compose file
+  template:
+    src: gitlab_docker_compose.yml.j2
+    dest: "{{ gitlab_root }}/docker-compose.yml"
+
+- name: Deploy the Gitlab instance using docker-compose
+  docker_compose:
+    project_src: "{{ gitlab_root }}"
+    build: yes
+    pull: yes
+

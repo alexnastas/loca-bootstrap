@@ -1,0 +1,16 @@
+gitlab:
+  image: 'gitlab/gitlab-ee:latest'
+  restart: always
+  hostname: 'gitlab.loca.local'
+  environment:
+    GITLAB_OMNIBUS_CONFIG: |
+      external_url 'https://bootstrap'
+      # Add any other gitlab.rb configuration here, each on its own line
+  ports:
+    - {{ gitlab_http_public_port }}:80
+    - {{ gitlab_https_public_port }}:443
+    - {{ gitlab_ssh_public_port }}:22
+  volumes:
+    - '{{ gitlab_root }}/config:/etc/gitlab'
+    - '{{ gitlab_root }}/logs:/var/log/gitlab'
+    - '{{ gitlab_root }}/data:/var/opt/gitlab'

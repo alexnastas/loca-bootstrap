@@ -1,0 +1,24 @@
+version: '3.4'
+services:
+  nginx:
+    ports:
+      - {{netbox_public_http_port}}:{{netbox_http_port}}
+    deploy:
+      restart_policy:
+        condition: any
+  netbox-worker:
+    deploy:
+      restart_policy:
+        condition: any
+  postgres:
+    deploy:
+      restart_policy:
+        condition: any
+  redis:
+    deploy:
+      restart_policy:
+        condition: any
+  redis-cache:
+    deploy:
+      restart_policy:
+        condition: any
